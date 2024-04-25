@@ -40,14 +40,14 @@ jobs:
       
       - name: Install dependencies and run server
         run: |
-          pnpm install
-          pnpm run server &
+          npm install
+          npm run server &
 
       - name: Install React dependencies and start React app
         run: |
           cd path/to/react/app
-          pnpm install
-          pnpm start &  
+          npm install
+          npm start &  
 
   # Deployment job
   deploy:

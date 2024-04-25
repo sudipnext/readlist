@@ -38,6 +38,95 @@ We use the first as our variable and to change the state of the variable we can 
 setVariable(newchangedthing)
 ```
 
+### useEffect
+
+`useEffect` is a hook provided by React that allows you to perform side effects in your components. Side effects could be anything from data fetching, subscriptions, or manually changing the DOM. `useEffect` runs after every render by default, but you can control when it runs by passing an array of dependencies.
+
+Typical Syntax:
+```javascript
+import { useEffect } from 'react';
+
+useEffect(() => {
+  // Your side effect here
+}, []);
+```
+Three Simple Cases to consider.
+#### Case I
+It renders automatically when the component rerenders everytime.
+```javscript
+useEffect(()=>{
+
+})
+```
+#### Case II
+It renders only once the component re-renders.
+```javscript
+useEffect(()=>{
+    
+}, [])
+```
+#### Case III
+It renders depending on the state variable or something that put put into when we want to update something based upon.
+```javscript
+useEffect(()=>{
+    
+}, [somestate or some function/s])
+```
+
+### createContext and useContext
+ * createContext and useContext are React hooks used for managing global state in a React application.
+ * createContext is used to create a context object that can be accessed by child components. It takes an optional initial value as a parameter and returns a Provider and a Consumer component.
+ * useContext is used to access the value provided by the nearest context provider in the component tree. It takes the context object as a parameter and returns the current context value.
+ * Example usage:
+```javascript
+ // Create a context
+ const MyContext = createContext();
+  
+ // Provide a value to the context
+ <MyContext.Provider value={myValue}>
+    <ChildComponent />
+ </MyContext.Provider>
+  
+ // Access the context value in a child component
+ const myValue = useContext(MyContext);
+  
+ //returns {Object} An object containing the Provider and Consumer components.
+ ```
+
+### useCallback
+useCallback is another hook provided by React. It returns a `memoized` version of the callback function that only changes if one of the dependencies has changed. It's useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders. 
+
+Typical Syntax:
+```javascript
+import { useCallback } from 'react';
+
+const memoizedCallback = useCallback(() => {
+  // Your callback here
+}, [dependencies]);
+```
+Example Usage:
+```javascript
+fetchBooks = async ()=>{
+    const response = await axios.get(url);
+    return response.data;
+}
+//In some component
+useEffect(()=>{
+    fetchBooks();
+}, [])
+/* when we use that inside he useeffect the eSLint will through us some kind of error or warning saying we must pass something to the dependencies array so when we put something like */
+useEffect(()=>{
+    fetchBooks();
+}, [fetchBooks])
+/* It will introduce us with a infinite loop because the fetchBooks is being called everytime when the fetchBooks changed. So, to solve this we can use useCallback.
+changing the fetch function to this solves the issue.
+*/
+fetchBooks = useCallback(async ()=>{
+    const response = await axios.get(url);
+    return response.data;
+}, [])
+```
+
 Since it's a booklist application so, as we can see in the above image the user must be able to:
 - Create the Book
 - Edit the Book

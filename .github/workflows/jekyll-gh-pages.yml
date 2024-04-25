@@ -37,6 +37,17 @@ jobs:
           destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+      
+      - name: Install dependencies and run server
+        run: |
+          pnpm install
+          pnpm run server &
+
+      - name: Install React dependencies and start React app
+        run: |
+          cd path/to/react/app
+          pnpm install
+          pnpm start &  
 
   # Deployment job
   deploy:

@@ -25,25 +25,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Lint the code
-      - name: Run ESLint
-        run: npm run lint
-
-      # Run tests
-      # Note: Add test scripts in package.json if available
-      # - name: Run tests
-      #   run: npm test
-
       # Build the project
       - name: Build the project
         run: npm run build
-
-      # Deploy to GitHub Pages (Optional)
-      # - name: Deploy to GitHub Pages
-      #   if: success()
-      #   run: |
-      #     npm install -g gh-pages
-      #     npm run build
-      #     gh-pages -d dist -r https://<GITHUB_TOKEN>@github.com/<YOUR_USERNAME>/<YOUR_REPOSITORY>.git
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
